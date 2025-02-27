@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 
 function App() {
-  return (
-    <div>
-      <Counter></Counter>
-    </div>
-  );
+  const [counterVisible, setCounterVisible] = useState(true);
+  useEffect(() => {
+    setInterval(() => {
+      setCounterVisible((counterVisible) => !counterVisible);
+    }, 5000);
+  }, []);
+  return <div>hi {counterVisible ? <Counter></Counter> : null} hello</div>;
 }
 
 function Counter() {
