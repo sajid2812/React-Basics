@@ -1,34 +1,36 @@
 import { useState, useEffect } from "react";
 
 function App() {
-  const [counterVisible, setCounterVisible] = useState(true);
-  useEffect(() => {
-    setInterval(() => {
-      setCounterVisible((counterVisible) => !counterVisible);
-    }, 5000);
-  }, []);
-  return <div>hi {counterVisible ? <Counter></Counter> : null} hello</div>;
-}
-
-function Counter() {
   const [count, setCount] = useState(0);
 
-  useEffect(function () {
-    const counter = setInterval(function () {
-      setCount(function (count) {
-        return count + 1;
-      });
-    }, 1000);
+  function increaseCount() {
+    setCount((c) => c + 1);
+  }
+  return (
+    <div>
+      <Counter count={count}></Counter>
+      <button onClick={increaseCount}>Increase count</button>
+    </div>
+  );
+}
+
+function Counter(props) {
+  useEffect(() => {
+    console.log("mount");
+
     return function () {
-      clearInterval(counter);
+      console.log("unmount");
     };
   }, []);
 
-  return (
-    <div>
-      <h1 id="text">{count}</h1>
-    </div>
-  );
+  useEffect(() => {
+    console.log("count has changed");
+    return function (){
+      console.log('umount running')
+    }
+  }, [props.count]);
+
+  return <div>Counter {props.count}</div>;
 }
 
 export default App;
