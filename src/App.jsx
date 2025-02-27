@@ -14,11 +14,14 @@ function Counter() {
   const [count, setCount] = useState(0);
 
   useEffect(function () {
-    setInterval(function () {
+    const counter = setInterval(function () {
       setCount(function (count) {
         return count + 1;
       });
     }, 1000);
+    return function () {
+      clearInterval(counter);
+    };
   }, []);
 
   return (
