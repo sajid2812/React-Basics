@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 function App() {
   return (
     <>
@@ -7,10 +13,7 @@ function App() {
         <Link to="/neet/online-coaching-class-11">Class 11</Link>
         <Link to="/neet/online-coaching-class-12">Class 12</Link>
         <Routes>
-        <Route
-            path="/"
-            element={<Landing />}
-          ></Route>
+          <Route path="/" element={<Landing />}></Route>
           <Route
             path="/neet/online-coaching-class-11"
             element={<Class11Program />}
@@ -25,8 +28,8 @@ function App() {
   );
 }
 
-function Landing(){
-  return <>Allen this side</>
+function Landing() {
+  return <>Allen this side</>;
 }
 
 function Class11Program() {
@@ -34,7 +37,17 @@ function Class11Program() {
 }
 
 function Class12Program() {
-  return <>Neet program for class 12th</>;
+  const navigate = useNavigate();
+
+  function redirectUser() {
+    navigate("/");
+  }
+
+  return (
+    <>
+      Neet program for class 12th <button onClick={redirectUser}>Home</button>
+    </>
+  );
 }
 
 export default App;
