@@ -1,36 +1,25 @@
 import { useState, useEffect } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  function increaseCount() {
-    setCount((c) => c + 1);
-  }
   return (
     <div>
-      <Counter count={count}></Counter>
-      <button onClick={increaseCount}>Increase count</button>
+      <Card>
+        <div>I am a card body</div>
+      </Card>
     </div>
   );
 }
 
-function Counter(props) {
-  useEffect(() => {
-    console.log("mount");
-
-    return function () {
-      console.log("unmount");
-    };
-  }, []);
-
-  useEffect(() => {
-    console.log("count has changed");
-    return function (){
-      console.log('umount running')
-    }
-  }, [props.count]);
-
-  return <div>Counter {props.count}</div>;
+function Card({ children }) {
+  return (
+    <div>
+      <div>Header</div>
+      <div style={{ background: "black", borderRadius: "5px", color: "white" }}>
+        {children}
+      </div>
+      <div>Footer</div>
+    </div>
+  );
 }
 
 export default App;
