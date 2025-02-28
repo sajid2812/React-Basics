@@ -1,25 +1,40 @@
-import { useState, useEffect } from "react";
-
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 function App() {
   return (
-    <div>
-      <Card>
-        <div>I am a card body</div>
-      </Card>
-    </div>
+    <>
+      <BrowserRouter>
+        <Link to="/">Allen</Link>
+        <Link to="/neet/online-coaching-class-11">Class 11</Link>
+        <Link to="/neet/online-coaching-class-12">Class 12</Link>
+        <Routes>
+        <Route
+            path="/"
+            element={<Landing />}
+          ></Route>
+          <Route
+            path="/neet/online-coaching-class-11"
+            element={<Class11Program />}
+          ></Route>
+          <Route
+            path="/neet/online-coaching-class-12"
+            element={<Class12Program />}
+          ></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
-function Card({ children }) {
-  return (
-    <div>
-      <div>Header</div>
-      <div style={{ background: "black", borderRadius: "5px", color: "white" }}>
-        {children}
-      </div>
-      <div>Footer</div>
-    </div>
-  );
+function Landing(){
+  return <>Allen this side</>
+}
+
+function Class11Program() {
+  return <>Neet program for class 11th</>;
+}
+
+function Class12Program() {
+  return <>Neet program for class 12th</>;
 }
 
 export default App;
