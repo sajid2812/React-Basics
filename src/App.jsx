@@ -1,55 +1,46 @@
 import { useState, createContext, useContext } from "react";
 
-const BulbContext = createContext();
+const CountContext = createContext();
 
-function BulbProvider({ children }) {
-  const [bulbOn, setBulbOn] = useState(true);
+function CountContextProvider({ children }) {
+  const [count, setCount] = useState(0);
   return (
-    <BulbContext.Provider
+    <CountContext.Provider
       value={{
-        bulbOn: bulbOn,
-        setBulbOn: setBulbOn,
+        count: count,
+        setCount: setCount,
       }}
     >
       {children}
-    </BulbContext.Provider>
+    </CountContext.Provider>
   );
 }
 
 function App() {
   return (
     <div>
-      <BulbProvider>
-        <LightBulb />
-      </BulbProvider>
+      <CountContextProvider>
+        <Value />
+        <Increase />
+        <Decrease />
+      </CountContextProvider>
     </div>
   );
 }
 
-function LightBulb() {
-  return (
-    <div>
-      <BulbState></BulbState>
-      <ToggleBulbState></ToggleBulbState>
-    </div>
-  );
+function Increase() {
+  const { count, setCount } = useContext(CountContext);
+  return <button onClick={() => setCount(count + 1)}>+</button>;
 }
 
-function BulbState() {
-  const { bulbOn } = useContext(BulbContext);
-  return <div>{bulbOn ? "Bulb On" : "Bulb Off"}</div>;
+function Decrease() {
+  const { count, setCount } = useContext(CountContext);
+  return <button onClick={() => setCount(count - 1)}>-</button>;
 }
 
-function ToggleBulbState() {
-  const { setBulbOn } = useContext(BulbContext);
-  function toggleBulb() {
-    setBulbOn((currState) => !currState);
-  }
-  return (
-    <div>
-      <button onClick={toggleBulb}>Toggle</button>
-    </div>
-  );
+function Value() {
+  const { count } = useContext(CountContext);
+  return <div>{count}</div>;
 }
 
 export default App;
