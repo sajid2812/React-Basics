@@ -29,13 +29,13 @@ function App() {
 }
 
 function Increase() {
-  const { count, setCount } = useContext(CountContext);
-  return <button onClick={() => setCount(count + 1)}>+</button>;
+  const { setCount } = useContext(CountContext);
+  return <button onClick={() => setCount((count) => count + 1)}>+</button>;
 }
 
 function Decrease() {
-  const { count, setCount } = useContext(CountContext);
-  return <button onClick={() => setCount(count - 1)}>-</button>;
+  const { setCount } = useContext(CountContext);
+  return <button onClick={() => setCount((count) => count - 1)}>-</button>;
 }
 
 function Value() {
