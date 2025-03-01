@@ -13,7 +13,6 @@ function App() {
     <div>
       <button onClick={() => setCurrentPost(1)}>1</button>
       <button onClick={() => setCurrentPost(2)}>2</button>
-      <button onClick={() => setCurrentPost(3)}>3</button>
       {JSON.stringify(finalData)}
     </div>
   );
