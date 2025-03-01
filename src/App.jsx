@@ -1,24 +1,34 @@
 import { useState, useRef } from "react";
 
 function App() {
-  const [count, setCount] = useState(1);
-  const timer = useRef();
-
-  function startClock() {
-    timer.current = setInterval(() => {
-      setCount((c) => c + 1);
-    }, 1000);
-  }
-  function endClock() {
-    clearInterval(timer.current);
-  }
-
   return (
     <div>
-      {count}
-      <br />
-      <button onClick={startClock}>Start</button>
-      <button onClick={endClock}>Stop</button>
+      <LightBulb />
+    </div>
+  );
+}
+
+function LightBulb() {
+  const [bulbOn, setBulbOn] = useState(false);
+  return (
+    <div>
+      <BulbState bulbOn={bulbOn}></BulbState>
+      <ToggleBulbState setBulbOn={setBulbOn}></ToggleBulbState>
+    </div>
+  );
+}
+
+function BulbState({ bulbOn }) {
+  return <div>{bulbOn ? "Bulb On" : "Bulb Off"}</div>;
+}
+
+function ToggleBulbState({ setBulbOn }) {
+  function toggleBulb() {
+    setBulbOn((currState) => !currState);
+  }
+  return (
+    <div>
+      <button onClick={toggleBulb}>Toggle</button>
     </div>
   );
 }
