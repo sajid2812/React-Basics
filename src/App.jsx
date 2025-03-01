@@ -1,46 +1,20 @@
-import { useState, createContext, useContext } from "react";
+import { useState } from "react";
 
-const CountContext = createContext();
-
-function CountContextProvider({ children }) {
+function useCounter() {
   const [count, setCount] = useState(0);
-  return (
-    <CountContext.Provider
-      value={{
-        count: count,
-        setCount: setCount,
-      }}
-    >
-      {children}
-    </CountContext.Provider>
-  );
+  function increaseCount() {
+    setCount((count) => count + 1);
+  }
+  return { count, increaseCount };
 }
 
 function App() {
+  const { count, increaseCount } = useCounter();
   return (
     <div>
-      <CountContextProvider>
-        <Value />
-        <Increase />
-        <Decrease />
-      </CountContextProvider>
+      <button onClick={increaseCount}>Increase {count}</button>
     </div>
   );
-}
-
-function Increase() {
-  const { setCount } = useContext(CountContext);
-  return <button onClick={() => setCount((count) => count + 1)}>+</button>;
-}
-
-function Decrease() {
-  const { setCount } = useContext(CountContext);
-  return <button onClick={() => setCount((count) => count - 1)}>-</button>;
-}
-
-function Value() {
-  const { count } = useContext(CountContext);
-  return <div>{count}</div>;
 }
 
 export default App;
