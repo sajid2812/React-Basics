@@ -1,21 +1,17 @@
 import { useState } from "react";
 import { useFetch } from "./useFetch.js";
 import { usePrev } from "./usePrev.js";
+import { useDebounce } from "./useDebounce.js";
 
 function App() {
-  const [state, setState] = useState(0);
-  const prev = usePrev(state);
+  function getData() {
+    fetch("https://jsonplaceholder.typicode.com/todos/1");
+  }
+  const debouncedFn = useDebounce(getData);
+
   return (
     <>
-      <p>{state}</p>
-      <button
-        onClick={() => {
-          setState((curr) => curr + 1);
-        }}
-      >
-        Click me
-      </button>
-      <p>The prev value was {prev}</p>
+      <input type="text" onChange={debouncedFn} />
     </>
   );
 }
