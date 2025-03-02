@@ -1,17 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFetch } from "./useFetch.js";
 import { usePrev } from "./usePrev.js";
 import { useDebounce } from "./useDebounce.js";
 
 function App() {
-  function getData() {
-    fetch("https://jsonplaceholder.typicode.com/todos/1");
+  const [inputVal, setInputVal] = useState("");
+  const debouncedValue = useDebounce(inputVal, 300);
+
+  function change(e) {
+    setInputVal(e.target.value);
   }
-  const debouncedFn = useDebounce(getData);
+
+  useEffect(() => {
+    console.log("expensive operation");
+  }, [debouncedValue]);
 
   return (
     <>
-      <input type="text" onChange={debouncedFn} />
+      <input type="text" onChange={change} />
     </>
   );
 }
