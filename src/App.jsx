@@ -1,25 +1,43 @@
-import { useEffect, useState } from "react";
-import { useFetch } from "./useFetch.js";
-import { usePrev } from "./usePrev.js";
-import { useDebounce } from "./useDebounce.js";
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
+import { counterAtom } from "../src/store/atoms/counter.js";
 
 function App() {
-  const [inputVal, setInputVal] = useState("");
-  const debouncedValue = useDebounce(inputVal, 300);
-
-  function change(e) {
-    setInputVal(e.target.value);
-  }
-
-  useEffect(() => {
-    console.log("expensive operation");
-  }, [debouncedValue]);
-
   return (
-    <>
-      <input type="text" onChange={change} />
-    </>
+    <RecoilRoot>
+      <Counter />
+    </RecoilRoot>
   );
+}
+
+function Counter() {
+  return (
+    <div>
+      <CurrentCount />
+      <Increase />
+      <Decrease />
+    </div>
+  );
+}
+
+function CurrentCount() {
+  const count = useRecoilValue(counterAtom);
+  return <div>{count}</div>;
+}
+
+function Increase() {
+  const setCount = useSetRecoilState(counterAtom);
+  function increase() {
+    setCount((count) => count + 1);
+  }
+  return <button onClick={increase}>+</button>;
+}
+
+function Decrease() {
+  const setCount = useSetRecoilState(counterAtom);
+  function decrease() {
+    setCount((count) => count - 1);
+  }
+  return <button onClick={decrease}>-</button>;
 }
 
 export default App;
