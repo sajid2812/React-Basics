@@ -5,7 +5,7 @@ export const counterAtom = atom({
   default: 0,
 });
 
-export const even = selector({
+export const evenSelector = selector({
   key: "isEvenSelector",
   get: ({ get }) => {
     const currCount = get(counterAtom);
