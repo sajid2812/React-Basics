@@ -2,12 +2,13 @@ import { atom, selector } from "recoil";
 
 export const notifications = atom({
   key: "networkAtom",
-  default: {
-    networks: 0,
-    jobs: 0,
-    messaging: 0,
-    notifications: 0,
-  },
+  default: selector({
+    key: "networkAtomSelector",
+    get: async () => {
+      const res = await axios.get("https://google.com");
+      return res.data;
+    },
+  }),
 });
 
 export const totalNotificationSelector = selector({

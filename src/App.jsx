@@ -1,10 +1,5 @@
 import { useEffect } from "react";
-import {
-  RecoilRoot,
-  useRecoilState,
-  useRecoilValue,
-  useSetRecoilState,
-} from "recoil";
+import { RecoilRoot, useRecoilValue } from "recoil";
 import {
   notifications,
   totalNotificationSelector,
@@ -21,14 +16,8 @@ function App() {
 }
 
 function MainApp() {
-  const [networkCount, setNetworkCount] = useRecoilState(notifications);
+  const networkCount = useRecoilValue(notifications);
   const totalNotificationCount = useRecoilValue(totalNotificationSelector);
-
-  useEffect(() => {
-    axios.get("https://google.com").then((res) => {
-      setNetworkCount(res.data);
-    });
-  }, []);
 
   return (
     <>
